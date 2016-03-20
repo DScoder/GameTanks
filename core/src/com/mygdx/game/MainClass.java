@@ -34,18 +34,25 @@ public class MainClass extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(font,0,0,1000,600);
 		for (int i = 0; i < tanks.length; i++) {
-			if(tanks[i] == null)
-				break;
-			tanks[i].draw(batch);
+			if(tanks[i].isAlive()){
+				tanks[i].draw(batch);
+			}
 		}
 		batch.end();
 	}
 
 	public void update(){
+		tanks[0].update();
+		for (int i = 1; i < tanks.length; i++) {
+			if(tanks[i].isAlive()) {
+				tanks[i].update();
+				float len = (float)Math.sqrt(Math.pow(tanks[0].position.x - tanks[i].position.x, 2) +
+						Math.pow(tanks[0].position.y - tanks[i].position.y, 2));
+				if(len < 35){
+					tanks[i].destroy();
+				}
+			}
 
-		for (int i = 0; i < tanks.length; i++) {
-			if(tanks[i] == null) break;
-			tanks[i].update();
 		}
 	}
 }

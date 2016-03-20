@@ -11,12 +11,12 @@ public abstract class BaseTank {
     protected Vector2 position;
     protected float angle;
     protected Texture myTexture;
-
-
+    protected boolean alive;
 
     public BaseTank(Vector2 position) {
         this.position = position;
         this.angle = 0;
+        alive = true;
     }
     public void rotate(int howFast){
         angle += howFast;
@@ -25,6 +25,15 @@ public abstract class BaseTank {
     public abstract void draw(SpriteBatch batch);
 
     public void update(){}
+
+    public void destroy(){
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
 }
 
 
