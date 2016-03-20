@@ -57,14 +57,34 @@ public class PlayerTank extends BaseTank {
                 gun1.position.x--;
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D))
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D)){
             angle = 315.0f;
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A))
+            position.x-=0.25;
+            gun1.position.x-=0.25;
+            position.y-=0.25;
+            gun1.position.y-=0.25;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A)) {
             angle = 45.0f;
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D))
+            position.x+=0.25;
+            gun1.position.x+=0.25;
+            position.y-=0.25;
+            gun1.position.y-=0.25;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D)) {
             angle = 225.0f;
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.A))
+            position.x-=0.25;
+            gun1.position.x-=0.25;
+            position.y+=0.25;
+            gun1.position.y+=0.25;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.A)) {
             angle = 135.0f;
+            position.x+=0.25;
+            gun1.position.x+=0.25;
+            position.y+=0.25;
+            gun1.position.y+=0.25;
+        }
         gun1.update();
     }
 }
