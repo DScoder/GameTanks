@@ -12,17 +12,16 @@ public class MainClass extends ApplicationAdapter {
 	SpriteBatch batch;
 	BaseTank[] tanks = new BaseTank[10];
 	Random rand = new Random();
-	TheGun gun1;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		tanks[0] = new PlayerTank(new Vector2(Gdx.graphics.getHeight()/2,Gdx.graphics.getWidth()/3));
+		tanks[0] = new PlayerTank(new Vector2(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2 ));
 		for (int i = 1; i < tanks.length; i++) {
 			tanks[i] = new BotWacher(new Vector2(rand.nextInt(800),rand.nextInt(600)));
 		}
-		gun1 = new TheGun(new Vector2(300,300));
+
 	}
 
 	@Override
@@ -36,7 +35,6 @@ public class MainClass extends ApplicationAdapter {
 				break;
 			tanks[i].draw(batch);
 		}
-		gun1.draw(batch);
 
 
 		batch.end();
@@ -48,6 +46,5 @@ public class MainClass extends ApplicationAdapter {
 			if(tanks[i] == null) break;
 			tanks[i].update();
 		}
-		gun1.update();
 	}
 }
