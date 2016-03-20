@@ -13,7 +13,6 @@ public class PlayerTank extends BaseTank {
     TheGun gun1;
 
 
-
     public PlayerTank(Vector2 position) {
         super(position);
         gun1 = new TheGun(new Vector2(new Vector2(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2 +12 )));
@@ -30,7 +29,6 @@ public class PlayerTank extends BaseTank {
 
     @Override
     public void update(){
-
         if (Gdx.input.isKeyPressed(Input.Keys.W)){
             angle = 0;
             if(position.y < 600 - myTexture.getHeight() ){
@@ -59,18 +57,14 @@ public class PlayerTank extends BaseTank {
                 gun1.position.x--;
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D))
             angle = 315.0f;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A))
             angle = 45.0f;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D))
             angle = 225.0f;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.A))
             angle = 135.0f;
-        }
         gun1.update();
     }
 }
