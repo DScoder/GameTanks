@@ -15,8 +15,6 @@ public class MainClass extends ApplicationAdapter {
 	Texture font;
 	Random rand = new Random();
 
-
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

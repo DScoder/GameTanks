@@ -16,14 +16,11 @@ public class TheGun {
     protected Texture myTexture;
     public static ArrayList<Ammo> ams = new ArrayList<Ammo>();
 
-
     public TheGun(Vector2 position) {
         this.position = position;
         angle = 0;
         myTexture = new Texture("Gun130x40.png");
     }
-
-
 
     public void draw(SpriteBatch batch){
         batch.draw(myTexture, position.x, position.y, myTexture.getWidth()/2, myTexture.getHeight()/4,
@@ -47,14 +44,5 @@ public class TheGun {
 
     public void shout(){
         ams.add(new Ammo(new Vector2(position.x,position.y),angle));
-    }
-
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public float getAngle() {
-        return angle;
     }
 }
