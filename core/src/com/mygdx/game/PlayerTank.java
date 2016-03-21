@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 public class PlayerTank extends BaseTank {
     TheGun gun1;
 
-
     public PlayerTank(Vector2 position) {
         super(position);
         gun1 = new TheGun(new Vector2(new Vector2(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2 +12 )));
