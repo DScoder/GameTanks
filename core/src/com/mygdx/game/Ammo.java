@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Ilya on 21.03.2016.
  */
 public class Ammo {
-    private Vector2 position;
+    protected Vector2 position;
     protected float angle;
     protected static Texture myTexture;
     protected float velocityX;
@@ -27,10 +27,6 @@ public class Ammo {
         batch.draw(myTexture, position.x, position.y, myTexture.getWidth()/2, myTexture.getHeight()/2,
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight() ,false, false );
-    }
-
-    public void destroy(){
-        alive = false;
     }
 
     public void update(){

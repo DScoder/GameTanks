@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class MainClass extends ApplicationAdapter {
 	SpriteBatch batch;
-	BaseTank[] tanks = new BaseTank[15];
+	public BaseTank[] tanks = new BaseTank[15];
 	Texture font;
 	Random rand = new Random();
 
@@ -45,13 +45,20 @@ public class MainClass extends ApplicationAdapter {
 		for (int i = 1; i < tanks.length; i++) {
 			if(tanks[i].isAlive()) {
 				tanks[i].update();
-				float len = (float)Math.sqrt(Math.pow(tanks[0].position.x - tanks[i].position.x, 2) +
+				float lenTanks = (float)Math.sqrt(Math.pow(tanks[0].position.x - tanks[i].position.x, 2) +
 						Math.pow(tanks[0].position.y - tanks[i].position.y, 2));
-				if(len < 35){
+				if(lenTanks < 35){
 					tanks[i].destroy();
 				}
+				for (int j = 0; j < tanks[0].ams.size(); j++) {
+					float lenBullet = (float)Math.sqrt(Math.pow(tanks[0].ams.get(j).position.x - tanks[i].position.x, 2) +
+							Math.pow(tanks[0].ams.get(j).position.y - tanks[i].position.y, 2));
+					if(lenBullet < 30){
+						tanks[i].destroy();
+						tanks[0].ams.remove(j);
+					}
+				}
 			}
-
 		}
 	}
 }

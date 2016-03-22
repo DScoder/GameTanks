@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-
 /**
  * Created by Ilya on 19.03.2016.
  */
@@ -14,7 +12,6 @@ public class TheGun {
     protected Vector2 position;
     protected float angle;
     protected Texture myTexture;
-    public static ArrayList<Ammo> ams = new ArrayList<Ammo>();
 
     public TheGun(Vector2 position) {
         this.position = position;
@@ -26,23 +23,10 @@ public class TheGun {
         batch.draw(myTexture, position.x, position.y, myTexture.getWidth()/2, myTexture.getHeight()/4,
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight() ,false, false );
-        if(Gdx.input.justTouched()){
-            shoot();
-        }
-        for (int i = 0; i < ams.size() ; i++) {
-            ams.get(i).draw(batch);
-        }
     }
 
     public void update(){
         angle = (float) Math.toDegrees(Math.atan2(Gdx.graphics.getHeight() - position.y - myTexture.getWidth()/2 - Gdx.input.getY() + 3, Gdx.input.getX() - myTexture.getHeight()/2 -  position.x + 3)) - 90;
         if(angle < 0) angle += 360;
-        for (int i = 0; i < ams.size() ; i++) {
-            ams.get(i).update();
-        }
-    }
-
-    public void shoot(){
-        ams.add(new Ammo(new Vector2(position.x + 10,position.y), angle));
     }
 }

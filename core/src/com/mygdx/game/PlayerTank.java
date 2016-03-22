@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Ilya on 19.03.2016.
  */
 public class PlayerTank extends BaseTank {
-    TheGun gun1;
+    public TheGun gun1;
 
     public PlayerTank(Vector2 position) {
         super(position);
@@ -24,6 +24,12 @@ public class PlayerTank extends BaseTank {
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight() ,false, false );
         gun1.draw(batch);
+        if(Gdx.input.justTouched()){
+            shoot();
+        }
+        for (int i = 0; i < ams.size() ; i++) {
+            ams.get(i).draw(batch);
+        }
     }
 
     @Override
@@ -85,5 +91,16 @@ public class PlayerTank extends BaseTank {
             gun1.position.y+=0.25f;
         }
         gun1.update();
+        for (int i = 0; i < ams.size() ; i++) {
+            if(ams.get(i).position.x > 1000 - 16 || ams.get(i).position.y > 600 - 16 || ams.get(i).position.x < 0 || ams.get(i).position.y < 0){
+                ams.remove(i);
+                i--;
+            }else
+                ams.get(i).update();
+        }
+    }
+
+    public void shoot(){
+        ams.add(new Ammo(new Vector2(gun1.position.x + 10,gun1.position.y), gun1.angle));
     }
 }
