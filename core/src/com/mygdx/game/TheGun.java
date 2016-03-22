@@ -27,7 +27,7 @@ public class TheGun {
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight() ,false, false );
         if(Gdx.input.justTouched()){
-            shout();
+            shoot();
         }
         for (int i = 0; i < ams.size() ; i++) {
             ams.get(i).draw(batch);
@@ -42,7 +42,7 @@ public class TheGun {
         }
     }
 
-    public void shout(){
-        ams.add(new Ammo(new Vector2(position.x,position.y),angle));
+    public void shoot(){
+        ams.add(new Ammo(new Vector2(position.x + 10,position.y), angle));
     }
 }

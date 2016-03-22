@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class BotWacher extends BaseTank {
 
-
     public BotWacher(Vector2 position) {
         super(position);
         if(myTexture == null){

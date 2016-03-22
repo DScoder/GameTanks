@@ -20,10 +20,11 @@ public class Ammo {
         this.angle = angle;
         myTexture = new Texture("Bullet16x16.png");
         alive = true;
+        velocityY = 0;
     }
 
     public void draw(SpriteBatch batch){
-        batch.draw(myTexture, position.x, position.y, 15, 0,
+        batch.draw(myTexture, position.x, position.y, myTexture.getWidth()/2, myTexture.getHeight()/2,
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight() ,false, false );
     }
@@ -33,13 +34,9 @@ public class Ammo {
     }
 
     public void update(){
-//        velocityX = (float)Math.atan(angle-180);
-//        velocityY = (float)Math.atan(angle-90);
-//        position.x+=velocityX;
-//        position.y+=velocityY;
-    }
-
-    public Vector2 getPosition() {
-        return position;
+        velocityY =(float) Math.cos((angle)*Math.PI/180);
+        velocityX =(float) Math.sin((angle + 180)*Math.PI/180);
+        position.x+=velocityX*5;
+        position.y+=velocityY*5;
     }
 }

@@ -33,7 +33,6 @@ public abstract class BaseTank {
     public boolean isAlive() {
         return alive;
     }
-
 }
 
 
