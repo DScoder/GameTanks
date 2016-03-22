@@ -12,13 +12,15 @@ import java.util.Random;
 public class MainClass extends ApplicationAdapter {
 	SpriteBatch batch;
 	public BaseTank[] tanks = new BaseTank[15];
-	Texture font;
+	Texture mainBackground;
+	Texture secondBackground;
 	Random rand = new Random();
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		font = new Texture("font2.png");
+		mainBackground = new Texture("font2.png");
+		secondBackground = new Texture("font.png");
 		tanks[0] = new PlayerTank(new Vector2(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2 ));
 		for (int i = 1; i < tanks.length; i++) {
 			tanks[i] = new BotWacher(new Vector2(rand.nextInt(1000 - tanks[0].myTexture.getHeight()),rand.nextInt(600 - tanks[0].myTexture.getHeight())));
@@ -31,11 +33,12 @@ public class MainClass extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(font,0,0,1000,600);
+		batch.draw(mainBackground,0,0,1000,600);
+		for (int i = 0; i < 600; i+=100)
+			batch.draw(secondBackground,1000,i,100,100);
 		for (int i = 0; i < tanks.length; i++) {
-			if(tanks[i].isAlive()){
+			if(tanks[i].isAlive())
 				tanks[i].draw(batch);
-			}
 		}
 		batch.end();
 	}
