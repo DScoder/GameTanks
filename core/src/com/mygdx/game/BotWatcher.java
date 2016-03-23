@@ -7,12 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Created by Ilya on 19.03.2016.
  */
-public class BotWacher extends BaseTank {
+public class BotWatcher extends BaseTank {
 
-    public BotWacher(Vector2 position) {
+    public BotWatcher(Vector2 position) {
         super(position);
         if(myTexture == null){
-            myTexture = new Texture("BotWacher30x40.png");
+            myTexture = new Texture("BotWatcher30x40.png");
         }
     }
 

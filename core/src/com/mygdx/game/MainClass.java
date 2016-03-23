@@ -25,7 +25,7 @@ public class MainClass extends ApplicationAdapter {
 		secondBackground = new Texture("font.png");
 		tanks.add(0, new PlayerTank(new Vector2(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2 )));
 		for (int i = 0; i < countOfTanks; i++) {
-			tanks.add(new BotWacher(new Vector2(rand.nextInt(1000 - tanks.get(0).myTexture.getHeight()),rand.nextInt(600 - tanks.get(0).myTexture.getHeight()))));
+			tanks.add(new BotWatcher(new Vector2(rand.nextInt(1000 - tanks.get(0).myTexture.getHeight()),rand.nextInt(600 - tanks.get(0).myTexture.getHeight()))));
 		}
 	}
 
