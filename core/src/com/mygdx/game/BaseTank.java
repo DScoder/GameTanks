@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Ilya on 19.03.2016.
+ * Created by DScoder on 19.03.2016.
  */
 public abstract class BaseTank {
     protected Vector2 position;

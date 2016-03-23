@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 /**
- * Created by Ilya on 19.03.2016.
+ * Created by DScoder on 19.03.2016.
  */
 public class PlayerTank extends BaseTank {
     public TheGun gun1;

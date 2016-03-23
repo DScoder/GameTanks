@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Ilya on 21.03.2016.
+ * Created by DScoder on 21.03.2016.
  */
 public class Ammo {
     protected Vector2 position;

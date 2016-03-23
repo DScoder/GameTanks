@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Ilya on 19.03.2016.
+ * Created by DScoder on 19.03.2016.
  */
 public class BotWatcher extends BaseTank {
     private double vx = 0;
