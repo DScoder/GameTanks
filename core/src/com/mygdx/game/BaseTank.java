@@ -27,10 +27,14 @@ public abstract class BaseTank {
     public abstract void draw(SpriteBatch batch);
 
     public void update() {
-        if (position.x > Gdx.graphics.getWidth() - 100 - myTexture.getHeight() && velocityX > 0 || position.x < 0 && velocityX < 0)
-            velocityX = 0;
-        if (position.y > Gdx.graphics.getHeight() - myTexture.getHeight() && velocityY > 0 || position.y < 0 && velocityY < 0)
-            velocityY = 0;
+        if (position.x > Gdx.graphics.getWidth() - 100 - myTexture.getHeight() && velocityX > 0 || position.x < 0 && velocityX < 0){
+            velocityX = velocityX*(-1);
+            angle = 360 - angle;
+        }
+        if (position.y > Gdx.graphics.getHeight() - myTexture.getHeight() && velocityY > 0 || position.y < 0 && velocityY < 0){
+            velocityY = velocityY *(-1);
+            angle = 180 - angle;
+        }
     }
 
     public void shoot() {

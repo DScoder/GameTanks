@@ -13,7 +13,7 @@ import java.util.Random;
 public class MainClass extends ApplicationAdapter {
     SpriteBatch batch;
     ArrayList<BaseTank> tanks = new ArrayList<BaseTank>();
-    private int countOfBotTanks = 15;
+    private int countOfBotTanks = 25;
     Texture mainBackground;
     Texture bonusBackground;
     public static Random rand = new Random();
