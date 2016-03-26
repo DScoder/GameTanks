@@ -30,7 +30,7 @@ public class Ammo {
     public void update() {
         velocityY = (float) Math.cos((angle) * Math.PI / 180);
         velocityX = (float) Math.sin((angle + 180) * Math.PI / 180);
-        position.x += velocityX * 5;
-        position.y += velocityY * 5;
+        position.x += velocityX * 10;
+        position.y += velocityY * 10;
     }
 }

@@ -50,6 +50,9 @@ public class MainClass extends ApplicationAdapter {
             }
         }
         tanks.get(0).update();
+        if (Gdx.input.justTouched()) {
+            tanks.get(0).shoot();
+        }
         for (int i = 1; i < tanks.size(); i++) {
             tanks.get(i).update();
             float lenTanks = (float) Math.sqrt(Math.pow(tanks.get(0).position.x - tanks.get(i).position.x, 2) +
@@ -63,8 +66,12 @@ public class MainClass extends ApplicationAdapter {
                         Math.pow(tanks.get(0).ams.get(j).position.y - tanks.get(i).position.y, 2));
                 if (lenBullet < 30) {
                     tanks.remove(i);
-                    tanks.get(0).ams.remove(j);
                     i--;
+                    synchronized (tanks.get(0).ams) {
+                        tanks.get(0).ams.remove(j);
+                        break;
+                    }
+
                 }
             }
         }

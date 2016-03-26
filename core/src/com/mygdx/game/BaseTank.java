@@ -27,6 +27,7 @@ public abstract class BaseTank {
     public abstract void draw(SpriteBatch batch);
 
     public void update(){}
+    public void shoot(){}
 }
 
 
