@@ -13,16 +13,17 @@ import java.util.Random;
 public class MainClass extends ApplicationAdapter {
     SpriteBatch batch;
     ArrayList<BaseTank> tanks = new ArrayList<BaseTank>();
-    int countOfTanks = 15;
+    private int countOfBotTanks = 15;
     Texture mainBackground;
-    Texture secondBackground;
-    Random rand = new Random();
+    Texture bonusBackground;
+    public static Random rand = new Random();
+    private float rateOfFire = 0;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        mainBackground = new Texture("font2.png");
-        secondBackground = new Texture("font.png");
+        mainBackground = new Texture("MainBackground.png");
+        bonusBackground = new Texture("BonusBackground.png");
         tanks.add(0, new PlayerTank(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 3)));
         tanks.add(new BotWatcher(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2)));
     }
@@ -35,7 +36,7 @@ public class MainClass extends ApplicationAdapter {
         batch.begin();
         batch.draw(mainBackground, 0, 0, 1000, 600);
         for (int i = 0; i < 600; i += 100)
-            batch.draw(secondBackground, 1000, i, 100, 100);
+            batch.draw(bonusBackground, 1000, i, 100, 100);
         for (int i = 0; i < tanks.size(); i++) {
             tanks.get(i).draw(batch);
         }
@@ -44,24 +45,43 @@ public class MainClass extends ApplicationAdapter {
 
     public void update() {
         if (tanks.size() < 2) {
-            tanks.get(0).ams.clear();
-            for (int i = 0; i < countOfTanks; i++) {
+//            tanks.get(0).ams.clear();
+            for (int i = 0; i < countOfBotTanks; i++) {
                 tanks.add(new BotWatcher(new Vector2(rand.nextInt(1000 - tanks.get(0).myTexture.getHeight()), rand.nextInt(600 - tanks.get(0).myTexture.getHeight()))));
             }
         }
         tanks.get(0).update();
-        if (Gdx.input.justTouched()) {
+//        if (Gdx.input.justTouched()) {
+//            tanks.get(0).shoot();
+//        }
+        rateOfFire += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isTouched() && rateOfFire > 0.1f) {
             tanks.get(0).shoot();
+            rateOfFire = 0;
         }
+        //Bullets update
+        for (int i = 0; i < tanks.get(0).ams.size(); i++) {
+            tanks.get(0).ams.get(i).update();
+        }
+        //Tanks update and crush
         for (int i = 1; i < tanks.size(); i++) {
             tanks.get(i).update();
             float lenTanks = (float) Math.sqrt(Math.pow(tanks.get(0).position.x - tanks.get(i).position.x, 2) +
                     Math.pow(tanks.get(0).position.y - tanks.get(i).position.y, 2));
             if (lenTanks < 35) {
                 tanks.remove(i);
-                i--;
+                break;
             }
+
+            //Bullets crash
             for (int j = 0; j < tanks.get(0).ams.size(); j++) {
+                if (tanks.get(0).ams.get(j).position.x > 1000 - 16 || tanks.get(0).ams.get(j).position.y > 600 - 16 || tanks.get(0).ams.get(j).position.x < 0 || tanks.get(0).ams.get(j).position.y < 0) {
+                    synchronized (tanks.get(0).ams) {
+                        tanks.get(0).ams.remove(j);
+                        j--;
+                        break;
+                    }
+                }
                 float lenBullet = (float) Math.sqrt(Math.pow(tanks.get(0).ams.get(j).position.x - tanks.get(i).position.x, 2) +
                         Math.pow(tanks.get(0).ams.get(j).position.y - tanks.get(i).position.y, 2));
                 if (lenBullet < 30) {
@@ -71,7 +91,6 @@ public class MainClass extends ApplicationAdapter {
                         tanks.get(0).ams.remove(j);
                         break;
                     }
-
                 }
             }
         }

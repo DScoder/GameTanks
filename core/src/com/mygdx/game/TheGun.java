@@ -20,13 +20,13 @@ public class TheGun {
     }
 
     public void draw(SpriteBatch batch) {
+        angle = (float) Math.toDegrees(Math.atan2(Gdx.graphics.getHeight() - position.y - myTexture.getWidth() / 2 - Gdx.input.getY() + 3, Gdx.input.getX() - myTexture.getHeight() / 2 - position.x + 3)) - 90;
+        if (angle < 0) angle += 360;
         batch.draw(myTexture, position.x, position.y, myTexture.getWidth() / 2, myTexture.getHeight() / 4,
                 myTexture.getWidth(), myTexture.getHeight(), 1.0f, 1.0f, angle, 0, 0, myTexture.getWidth(),
                 myTexture.getHeight(), false, false);
     }
 
     public void update() {
-        angle = (float) Math.toDegrees(Math.atan2(Gdx.graphics.getHeight() - position.y - myTexture.getWidth() / 2 - Gdx.input.getY() + 3, Gdx.input.getX() - myTexture.getHeight() / 2 - position.x + 3)) - 90;
-        if (angle < 0) angle += 360;
     }
 }

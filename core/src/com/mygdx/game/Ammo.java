@@ -10,15 +10,15 @@ import com.badlogic.gdx.math.Vector2;
 public class Ammo {
     protected Vector2 position;
     protected float angle;
-    protected static Texture myTexture;
+    protected static Texture myTexture = new Texture("Bullet16x16.png");
     protected float velocityX;
     protected float velocityY;
 
     public Ammo(Vector2 position, float angle) {
         this.position = position;
         this.angle = angle;
-        myTexture = new Texture("Bullet16x16.png");
-        velocityY = 0;
+        velocityY = (float) Math.cos((angle) * Math.PI / 180) * 10;
+        velocityX = (float) Math.sin((angle + 180) * Math.PI / 180) * 10;
     }
 
     public void draw(SpriteBatch batch) {
@@ -28,9 +28,7 @@ public class Ammo {
     }
 
     public void update() {
-        velocityY = (float) Math.cos((angle) * Math.PI / 180);
-        velocityX = (float) Math.sin((angle + 180) * Math.PI / 180);
-        position.x += velocityX * 10;
-        position.y += velocityY * 10;
+        position.x += velocityX;
+        position.y += velocityY;
     }
 }
