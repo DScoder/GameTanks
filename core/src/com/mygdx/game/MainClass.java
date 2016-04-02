@@ -64,13 +64,12 @@ public class MainClass extends ApplicationAdapter {
             bonusSound.play();
 //            tanks.get(0).ams.clear();
             for (int i = 0; i < countOfBotTanks; i++) {
-                tanks.add(new BotWatcher(new Vector2(rand.nextInt(1000 - tanks.get(0).myTexture.getHeight()), rand.nextInt(600 - tanks.get(0).myTexture.getHeight()))));
+                tanks.add(new BotWatcher(new Vector2(rand.nextInt(1000 - tanks.get(0).myTexture.getHeight()),
+                        rand.nextInt(600 - tanks.get(0).myTexture.getHeight()))));
             }
         }
         tanks.get(0).update();
-//        if (Gdx.input.justTouched()) {
-//            tanks.get(0).shoot();
-//        }
+
         rateOfFire += Gdx.graphics.getDeltaTime();
         if (Gdx.input.isTouched() && rateOfFire > 0.2f) {
             tanks.get(0).shoot();
@@ -94,13 +93,12 @@ public class MainClass extends ApplicationAdapter {
 
             //Bullets crash
             for (int j = 0; j < tanks.get(0).ams.size(); j++) {
-                if (tanks.get(0).ams.get(j).position.x > 1000 - 16 || tanks.get(0).ams.get(j).position.y > 600 - 16 || tanks.get(0).ams.get(j).position.x < 0 || tanks.get(0).ams.get(j).position.y < 0) {
-                    synchronized (tanks.get(0).ams) {
-                        tanks.get(0).ams.remove(j);
-                        destroyBulletSound.play();
-                        j--;
-                        break;
-                    }
+                if (tanks.get(0).ams.get(j).position.x > 1000 - 16 || tanks.get(0).ams.get(j).position.y > 600 - 16 ||
+                        tanks.get(0).ams.get(j).position.x < 0 || tanks.get(0).ams.get(j).position.y < 0) {
+                    tanks.get(0).ams.remove(j);
+                    destroyBulletSound.play();
+                    j--;
+                    break;
                 }
                 float lenBullet = (float) Math.sqrt(Math.pow(tanks.get(0).ams.get(j).position.x - tanks.get(i).position.x, 2) +
                         Math.pow(tanks.get(0).ams.get(j).position.y - tanks.get(i).position.y, 2));
@@ -108,10 +106,8 @@ public class MainClass extends ApplicationAdapter {
                     tanks.remove(i);
                     destroyTankSound.play();
                     i--;
-                    synchronized (tanks.get(0).ams) {
-                        tanks.get(0).ams.remove(j);
-                        break;
-                    }
+                    tanks.get(0).ams.remove(j);
+                    break;
                 }
             }
         }
