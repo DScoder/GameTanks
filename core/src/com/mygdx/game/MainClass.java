@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,7 @@ public class MainClass extends ApplicationAdapter {
     private int countOfBotTanks = 25;
     Texture mainBackground;
     Texture bonusBackground;
+    Music music;
     public static Random rand = new Random();
     private float rateOfFire = 0;
 
@@ -24,6 +26,10 @@ public class MainClass extends ApplicationAdapter {
         batch = new SpriteBatch();
         mainBackground = new Texture("MainBackground.png");
         bonusBackground = new Texture("BonusBackground.png");
+        music = Gdx.audio.newMusic(Gdx.files.internal("BrainWave.mp3"));
+        music.setLooping(true);
+        music.play();
+
         tanks.add(0, new PlayerTank(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 3)));
         tanks.add(new BotWatcher(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2)));
     }
