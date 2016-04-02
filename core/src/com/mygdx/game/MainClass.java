@@ -112,4 +112,16 @@ public class MainClass extends ApplicationAdapter {
             }
         }
     }
+
+    @Override
+    public void dispose() {
+        mainBackground.dispose();
+        bonusBackground.dispose();
+        music.dispose();
+        destroyTankSound.dispose();
+        destroyBulletSound.dispose();
+        bonusSound.dispose();
+        shootSound.dispose();
+        batch.dispose();
+    }
 }
