@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -14,12 +15,16 @@ import java.util.ArrayList;
 
 public class PlayerTank extends BaseTank {
     public TheGun gun1;
+    private Music moveSound;
 
     public PlayerTank(Vector2 position) {
         super(position);
         ams = new ArrayList<Ammo>();
         gun1 = new TheGun(position.cpy().add(0, 12));
         myTexture = new Texture("MainTank30x40.png");
+        moveSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/Move.wav"));
+        moveSound.setLooping(true);
+        moveSound.setVolume(.6f);
     }
 
     @Override
@@ -45,17 +50,23 @@ public class PlayerTank extends BaseTank {
     private void inputKeyboard() {
         velocityX = velocityY = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            playMoveSound();
             angle = 0;
             velocityY = 1.0f;
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            playMoveSound();
             angle = 180.0f;
             velocityY = -1.0f;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            playMoveSound();
             angle = 270.0f;
             velocityX = 1.0f;
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            playMoveSound();
             angle = 90.0f;
             velocityX = -1.0f;
+        } else {
+            moveSound.stop();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -84,5 +95,11 @@ public class PlayerTank extends BaseTank {
 
     public void shoot() {
         ams.add(new Ammo(new Vector2(gun1.position.x + 10, gun1.position.y), gun1.angle));
+    }
+
+    private void playMoveSound(){
+        if(!moveSound.isPlaying()){
+            moveSound.play();
+        }
     }
 }
