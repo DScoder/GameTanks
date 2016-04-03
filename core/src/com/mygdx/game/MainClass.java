@@ -4,9 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -14,8 +18,6 @@ import java.util.Random;
 
 public class MainClass extends ApplicationAdapter {
     SpriteBatch batch;
-    ArrayList<BaseTank> tanks = new ArrayList<BaseTank>();
-    private int countOfBotTanks = 20;
     Texture mainBackground;
     Texture bonusBackground;
     Music music;
@@ -23,14 +25,30 @@ public class MainClass extends ApplicationAdapter {
     Sound destroyBulletSound;
     Sound bonusSound;
     Sound shootSound;
+    BitmapFont font;
+
+    Animation explosionAnimation;
+    Texture boomList;
+    private static final int FRAME_ROWS = 1;
+    private static final int FRAME_COLS = 29;
+    TextureRegion[] explosionFrames;
+    TextureRegion currentFrame;
+    float stateTime;
+
+    ArrayList<BaseTank> tanks = new ArrayList<BaseTank>();
+    private int countOfBotTanks = 20;
     public static Random rand = new Random();
     private float rateOfFire = 0;
+    private int tanksDestroyed = 0;
+
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         mainBackground = new Texture("MainBackground.png");
         bonusBackground = new Texture("BonusBackground.png");
+        font = new BitmapFont();
+        font.setColor(Color.CYAN);
 
         destroyTankSound = Gdx.audio.newSound(Gdx.files.internal("sounds/DestroyTank.wav"));
         destroyBulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/DestroyBullet.wav"));
@@ -42,13 +60,26 @@ public class MainClass extends ApplicationAdapter {
 
         tanks.add(0, new PlayerTank(new Vector2(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 3)));
         tanks.add(new BotWatcher(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2)));
+
+        boomList = new Texture(Gdx.files.internal("BoomList.png"));
+        TextureRegion[][] tmp = TextureRegion.split(boomList, boomList.getWidth()/FRAME_COLS, boomList.getHeight()/FRAME_ROWS);
+        explosionFrames = new TextureRegion[FRAME_COLS];
+        int index = 0;
+        for (int i = 0; i < FRAME_COLS; i++) {
+            explosionFrames[index++] = tmp[0][i];
+        }
+        explosionAnimation = new Animation(0.035f, explosionFrames);
+        stateTime = 0f;
     }
 
     @Override
     public void render() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = explosionAnimation.getKeyFrame(stateTime, true);
         update();
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
         batch.draw(mainBackground, 0, 0, 1000, 600);
         for (int i = 0; i < 600; i += 100)
@@ -56,6 +87,9 @@ public class MainClass extends ApplicationAdapter {
         for (int i = 0; i < tanks.size(); i++) {
             tanks.get(i).draw(batch);
         }
+        font.draw(batch, "Tanks Destroyed: " + tanksDestroyed, 0, 590);
+
+        batch.draw(currentFrame, 130, 570);
         batch.end();
     }
 
@@ -88,6 +122,7 @@ public class MainClass extends ApplicationAdapter {
             if (lenTanks < 35) {
                 tanks.remove(i);
                 destroyTankSound.play();
+                tanksDestroyed ++;
                 break;
             }
 
@@ -105,6 +140,7 @@ public class MainClass extends ApplicationAdapter {
                 if (lenBullet < 30) {
                     tanks.remove(i);
                     destroyTankSound.play();
+                    tanksDestroyed++;
                     i--;
                     tanks.get(0).ams.remove(j);
                     break;
@@ -117,6 +153,7 @@ public class MainClass extends ApplicationAdapter {
     public void dispose() {
         mainBackground.dispose();
         bonusBackground.dispose();
+        font.dispose();
         music.dispose();
         destroyTankSound.dispose();
         destroyBulletSound.dispose();
